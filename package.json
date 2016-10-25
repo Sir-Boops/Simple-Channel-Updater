@@ -1,0 +1,12 @@
+{
+    "name": "Simple-Channel-Updater",
+    "description": "Easily update your channels",
+    "author": "Sir_Boops <admin@boops.me>",
+    "license": "GPL-3.0",
+    "homepage": "https://git.frgl.pw/Sir_Boops/Simple-Channel-Updater",
+    "bugs": "https://git.frgl.pw/Sir_Boops/Simple-Channel-Updater/issues",
+    "dependencies": {
+        "twitch-api": "0.4.5"
+    },
+    "engine": "node >= 6.0.0"
+}

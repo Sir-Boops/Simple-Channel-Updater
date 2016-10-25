@@ -1,0 +1,10 @@
+{
+    "twitch": {
+        "enabled": false,
+        "username": "",
+        "clientID": "",
+        "clientSecret": "",
+        "redirectURI": "",
+        "code": ""
+    }
+}
