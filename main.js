@@ -6,6 +6,11 @@ var dir = __dirname;
 
 //Import set title commands
 var set_title_twitch = require("./functions/set/title/twitch.js");
+var set_title_beam = require("./functions/set/title/beam.js");
+var set_title_hitbox = require("./functions/set/title/hitbox.js");
+
+//Import set game commands
+var set_game_twitch = require("./functions/set/game/twitch.js");
 
 //Import auth commands
 var auth_twitch = require("./functions/auth/twitch.js");
@@ -24,6 +29,20 @@ if (process.argv[2]) {
             //Set twitch title
             if (process.argv[5].toLowerCase() == "twitch") {
                 set_title_twitch.set(process.argv[4], dir);
+            }
+            //Set Beam title
+            if (process.argv[5].toLowerCase() == "beam") {
+                set_title_beam.set(process.argv[4], dir);
+            }
+            //Set hitbox title
+            if (process.argv[5].toLowerCase() == "hitbox") {
+                set_title_hitbox.set(process.argv[4], dir);
+            }
+        }
+        //game sub command
+        if (process.argv[3].toLowerCase() == "game") {
+            if (process.argv[5].toLowerCase() == "twitch") {
+                set_game_twitch.set(process.argv[4], dir);
             }
         }
     }

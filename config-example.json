@@ -6,5 +6,10 @@
         "clientSecret": "",
         "redirectURI": "",
         "code": ""
+    },
+    "beam": {
+        "enabled": false,
+        "username": "",
+        "password": ""
     }
 }
