@@ -55,7 +55,6 @@ var set = function(game, top) {
                             typeId: game_id
                         }
                     }).then(res2 => {
-                        console.log(res2.body);
                         console.log("Channel Updated");
                     });
                 });
