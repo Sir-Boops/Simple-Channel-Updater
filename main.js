@@ -11,6 +11,8 @@ var set_title_hitbox = require("./functions/set/title/hitbox.js");
 
 //Import set game commands
 var set_game_twitch = require("./functions/set/game/twitch.js");
+var set_game_beam = require("./functions/set/game/beam.js");
+var set_game_hitbox = require("./functions/set/game/hitbox.js");
 
 //Import auth commands
 var auth_twitch = require("./functions/auth/twitch.js");
@@ -43,6 +45,12 @@ if (process.argv[2]) {
         if (process.argv[3].toLowerCase() == "game") {
             if (process.argv[5].toLowerCase() == "twitch") {
                 set_game_twitch.set(process.argv[4], dir);
+            }
+            if (process.argv[5].toLowerCase() == "beam") {
+                set_game_beam.set(process.argv[4], dir);
+            }
+            if (process.argv[5].toLowerCase() == "hitbox") {
+                set_game_hitbox.set(process.argv[4], dir);
             }
         }
     }

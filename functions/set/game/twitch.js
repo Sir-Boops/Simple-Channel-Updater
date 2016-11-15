@@ -16,30 +16,42 @@ var set = function(game, top) {
             scopes: ["channel_editor"]
         });
 
-        //Twitch Strings
-        var channel_settings = {
-            "channel": {
-                "game": game
-            }
-        };
-
         //Get The URL if it's not already there
         if (config.twitch.code != "") {
 
-            //If we already have proper auth
+            var options = {
+                query: game,
+                type: "suggest"
+            }
 
-            twitch.updateChannel(config.twitch.username, config.twitch.code, channel_settings,
-                function(err, ans) {
-                    if (err) {
-                        console.log(err);
-                    } else {
-                        if (ans.game == game) {
-                            console.log("Channel Updated");
-                        } else {
-                            console.log("Channel may not have updated");
-                        };
+            //If we already have proper auth
+            twitch.searchGames(options, function(err, ans) {
+                if (err) {
+                    console.log(err);
+                } else {
+                    var game_name = ans.games[0].name;
+
+                    //Build the channel settings
+                    var channel_settings = {
+                        "channel": {
+                            "game": game_name
+                        }
                     };
-                });
+
+                    //Now Update Twitch
+                    twitch.updateChannel(config.twitch.username, config.twitch.code, channel_settings, function(err, ans) {
+                        if (err) {
+                            console.log(err);
+                        } else {
+                            if (ans.game == game_name) {
+                                console.log("Channel Updated");
+                            } else {
+                                console.log("Channel may not have updated");
+                            };
+                        };
+                    });
+                }
+            })
 
         } else {
             var getauthorizationurl = twitch.getAuthorizationUrl();
