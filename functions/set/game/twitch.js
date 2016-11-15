@@ -29,7 +29,27 @@ var set = function(game, top) {
                 if (err) {
                     console.log(err);
                 } else {
-                    var game_name = ans.games[0].name;
+                    var game_name;
+
+                    //console.log(ans.games)
+
+                    //Find the best game name
+                    if (ans.games[0].name.toLowerCase() != game.toLowerCase()) {
+                        for (var i = 0; ans.games.length > i; i++) {
+
+                            if (ans.games[i].name.toLowerCase() == game.toLowerCase()) {
+                                game_name = ans.games[i].name
+                                i = (ans.games.length + 2);
+                            }
+
+                            if ((i + 1) >= ans.games.length && !game_name) {
+                                game_name = ans.games[0].name
+                            }
+
+                        }
+                    } else {
+                        game_name = ans.games[0].name
+                    }
 
                     //Build the channel settings
                     var channel_settings = {

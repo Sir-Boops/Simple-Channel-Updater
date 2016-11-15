@@ -13,12 +13,35 @@ var set = function(game, top) {
         var beam = new Beam();
 
         //Get Game
-        request.get("https://player.me/api/v1/games?_query=" + game, function(err, res, body) {
+        request.get("https://beam.pro/api/v1/types?limit=10&query=" + game, function(err, res, body) {
             if (err) {
                 console.log(err)
             } else {
-                var game_id = JSON.parse(body).results[0].id;
-                console.log(JSON.parse(body).results[0]);
+
+                var game_id;
+
+                //Find the best maching game else 0
+                if (JSON.parse(body)[0].name.toLowerCase() != game) {
+
+                    //Loop and try to find a better match
+                    for (i = 0; JSON.parse(body).length >= i; i++) {
+
+                        if (JSON.parse(body)[i].name.toLowerCase() == game.toLowerCase()) {
+                            //Found a better match!
+                            game_id = JSON.parse(body)[i].id;
+                            i = (JSON.parse(body).length + 2)
+                        }
+
+                        if ((i + 1) >= JSON.parse(body).length && !game_id) {
+                            //If theirs no better match then 0
+                            game_id = JSON.parse(body)[0].id;
+                        }
+                    }
+
+                } else {
+                    //0 Is the best mach
+                    game_id = JSON.parse(body)[0].id;
+                }
 
                 //Update Game On Beam
                 beam.use("password", {
@@ -29,7 +52,7 @@ var set = function(game, top) {
                         body: {
                             id: res.body.channel.id,
                             userId: res.body.channel.userId,
-                            typeId: 8819
+                            typeId: game_id
                         }
                     }).then(res2 => {
                         console.log(res2.body);

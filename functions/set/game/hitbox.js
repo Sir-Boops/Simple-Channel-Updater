@@ -13,7 +13,30 @@ var set = function(game, top) {
             if (err) {
                 console.log(err);
             } else {
-                var game_id = JSON.parse(body).categories[0].category_id;
+
+                var game_id;
+
+                //Find best game name
+                if (JSON.parse(body).categories[0].category_name.toLowerCase() != game.toLowerCase()) {
+
+                    //try and find a better one
+                    for (i = 0; JSON.parse(body).categories.length > i; i++) {
+
+                        if (JSON.parse(body).categories[i].category_name.toLowerCase() == game.toLowerCase()) {
+                            //Found a better match!
+                            game_id = JSON.parse(body).categories[i].category_id;
+                            i = (JSON.parse(body).categories.length + 2)
+                        }
+
+                        if ((i + 1) >= JSON.parse(body).categories.length && !game_id) {
+                            //If theirs no better match then 0
+                            game_id = JSON.parse(body).categories[0].category_id;
+                        }
+                    }
+
+                } else {
+                    game_id = JSON.parse(body).categories[0].category_id;
+                }
 
                 //Login to hitbox
                 request.post("https://api.hitbox.tv/auth/token", {
